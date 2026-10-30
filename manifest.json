@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "LeadBrief AI",
+  "version": "0.2.0",
+  "description": "Analyze any prospect page, score the fit, and draft short outreach — all stored locally on your device.",
+  "permissions": ["sidePanel", "tabs", "scripting", "storage", "activeTab", "clipboardWrite"],
+  "host_permissions": ["<all_urls>", "https://api.openai.com/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "LeadBrief AI" },
+  "side_panel": { "default_path": "src/sidepanel/index.html" }
+}

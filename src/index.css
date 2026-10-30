@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────────────────────────────────────────────────────────────────
+ * LeadBrief light design tokens — minimalistic, futuristic, alive.
+ * Pure-white surfaces, soft shadows for depth, restrained accent gradient.
+ * ─────────────────────────────────────────────────────────────────────── */
+:root {
+  --bg: #f6f7fb;
+  --bg-grad:
+    radial-gradient(60% 50% at 0% 0%, rgba(124, 140, 255, 0.10) 0%, transparent 60%),
+    radial-gradient(50% 50% at 100% 0%, rgba(76, 217, 224, 0.08) 0%, transparent 60%),
+    #ffffff;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --surface-tint: #f3f5fb;
+  --border: rgba(15, 23, 42, 0.06);
+  --border-strong: rgba(15, 23, 42, 0.12);
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+  --accent: #5b6eff;
+  --accent-strong: #4f46e5;
+  --accent-2: #06b6d4;
+  --accent-grad: linear-gradient(135deg, #4f46e5 0%, #0891b2 100%);
+  --accent-grad-soft: linear-gradient(135deg, rgba(91, 110, 255, 0.12) 0%, rgba(6, 182, 212, 0.10) 100%);
+  --good: #059669;
+  --warn: #b45309;
+  --bad: #e11d48;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 28px -12px rgba(15, 23, 42, 0.10);
+  --shadow-glow: 0 1px 2px rgba(91, 110, 255, 0.10), 0 12px 40px -16px rgba(91, 110, 255, 0.35);
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: "Inter", "SF Pro Text", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text);
+}
+
+body {
+  background: var(--bg);
+  background-image: var(--bg-grad);
+  background-attachment: fixed;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(91, 110, 255, 0.18);
+  color: var(--text);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.08);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.16);
+}
+
+/* ─── Reusable components ──────────────────────────────────────────── */
+@layer components {
+  .surface {
+    @apply rounded-2xl border;
+    border-color: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .surface-strong {
+    @apply rounded-2xl border;
+    border-color: var(--border);
+    background: var(--surface-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition-all;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn:hover:not(:disabled) {
+    border-color: var(--border-strong);
+    background: var(--surface-tint);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn relative overflow-hidden;
+    background: var(--accent-grad);
+    color: #ffffff;
+    border: 1px solid transparent;
+    font-weight: 600;
+    box-shadow: var(--shadow-glow);
+  }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 2px rgba(91, 110, 255, 0.15),
+      0 20px 56px -16px rgba(91, 110, 255, 0.5);
+  }
+
+  .btn-ghost {
+    @apply btn;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    color: var(--text-muted);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    color: var(--text);
+    background: var(--surface-tint);
+    border-color: var(--border);
+  }
+
+  .input,
+  .textarea,
+  .select {
+    @apply w-full rounded-xl px-3 py-2 text-sm transition-colors;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+    outline: none;
+  }
+  .input:focus,
+  .textarea:focus,
+  .select:focus {
+    border-color: var(--accent);
+    box-shadow:
+      var(--shadow-sm),
+      0 0 0 4px rgba(91, 110, 255, 0.12);
+  }
+  .input::placeholder,
+  .textarea::placeholder {
+    color: var(--text-faint);
+  }
+
+  .label {
+    @apply mb-1.5 block text-[11px] font-medium uppercase tracking-[0.08em];
+    color: var(--text-muted);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium;
+    background: var(--surface-tint);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .chip-good {
+    @apply chip;
+    color: var(--good);
+    border-color: rgba(5, 150, 105, 0.25);
+    background: rgba(5, 150, 105, 0.08);
+  }
+  .chip-warn {
+    @apply chip;
+    color: var(--warn);
+    border-color: rgba(180, 83, 9, 0.25);
+    background: rgba(180, 83, 9, 0.08);
+  }
+  .chip-bad {
+    @apply chip;
+    color: var(--bad);
+    border-color: rgba(225, 29, 72, 0.25);
+    background: rgba(225, 29, 72, 0.08);
+  }
+  .chip-accent {
+    @apply chip;
+    color: #3744cc;
+    border-color: rgba(91, 110, 255, 0.3);
+    background: rgba(91, 110, 255, 0.08);
+  }
+
+  .gradient-text {
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow-ring {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  }
+}
+
+/* ─── Animations: alive but subtle ─────────────────────────────────── */
+@keyframes lb-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes lb-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes lb-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes lb-spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-pulse-dot { animation: lb-pulse 1.4s ease-in-out infinite; }
+.animate-fade-up { animation: lb-fade-up 0.35s ease-out both; }
+.animate-shimmer {
+  background-image: linear-gradient(90deg, transparent, rgba(91, 110, 255, 0.16), transparent);
+  background-size: 200% 100%;
+  animation: lb-shimmer 1.6s linear infinite;
+}
+.animate-spin-slow { animation: lb-spin 1.4s linear infinite; }
